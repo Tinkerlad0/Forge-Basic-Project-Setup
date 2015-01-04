@@ -1,9 +1,11 @@
-package com.tinkerlad.forgeTool.files.mod.item;
+package com.tinkerlad.forgeTool.files.mod.java.item;
+
+import com.tinkerlad.forgeTool.files.mod.ModFile;
 
 /**
  * Created by Michael Brock on 12/24/2014.
  */
-public class ModItemsFile {
+public class ModItemsFile  extends ModFile {
 
     public static final String modFile =
             "package #PACKAGE#.item;" + System.lineSeparator() +
@@ -20,12 +22,4 @@ public class ModItemsFile {
                     "    }" + System.lineSeparator() +
                     "}" + System.lineSeparator();
 
-    public static String getMainModFile(String modName, String basePackage, String modID) {
-        String data = modFile;
-        data = data.replaceAll("#MODID#", modID);
-        data = data.replaceAll("#PACKAGE#", basePackage);
-        data = data.replaceAll("#MODNAME#", modName);
-
-        return data;
-    }
 }

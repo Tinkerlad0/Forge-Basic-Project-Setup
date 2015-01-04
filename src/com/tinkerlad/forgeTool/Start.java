@@ -25,6 +25,14 @@ public class Start {
 
         gui = new Main();
 
+        if (args != null){
+            for (String str : args){
+                if (str.matches("debug")){
+                    gui.setDebugParams();
+                }
+            }
+        }
+
         String javaVersion, gitVersion, gradleVersion, gradleJavaVersion;
 
         gradleVersion = SystemTests.gradleVersion();

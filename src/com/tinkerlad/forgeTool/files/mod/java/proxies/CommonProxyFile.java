@@ -1,9 +1,11 @@
-package com.tinkerlad.forgeTool.files.mod.proxies;
+package com.tinkerlad.forgeTool.files.mod.java.proxies;
+
+import com.tinkerlad.forgeTool.files.mod.ModFile;
 
 /**
  * Created by Michael Brock on 12/24/2014.
  */
-public class CommonProxyFile {
+public class CommonProxyFile extends ModFile {
 
     public static final String modFile =
             "package #PACKAGE#.proxies;" + System.lineSeparator() +
@@ -15,12 +17,4 @@ public class CommonProxyFile {
                     "    }" + System.lineSeparator() +
                     "}" + System.lineSeparator();
 
-        public static String getMainModFile(String modName, String basePackage, String modID){
-                String data = modFile;
-                data = data.replaceAll("#MODID#" , modID);
-                data = data.replaceAll("#PACKAGE#", basePackage);
-                data = data.replaceAll("#MODNAME#", modName);
-
-                return data;
-        }
 }

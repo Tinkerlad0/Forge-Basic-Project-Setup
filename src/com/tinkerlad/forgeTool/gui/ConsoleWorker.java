@@ -1,15 +1,19 @@
 package com.tinkerlad.forgeTool.gui;
 
+import com.tinkerlad.forgeTool.Commands;
 import com.tinkerlad.forgeTool.Start;
-import com.tinkerlad.forgeTool.files.BuildGradle;
-import com.tinkerlad.forgeTool.files.mod.MainModFile;
-import com.tinkerlad.forgeTool.files.mod.block.BlockGenericFile;
-import com.tinkerlad.forgeTool.files.mod.block.ModBlocksFile;
-import com.tinkerlad.forgeTool.files.mod.config.ConfigFile;
-import com.tinkerlad.forgeTool.files.mod.item.ItemGenericFile;
-import com.tinkerlad.forgeTool.files.mod.item.ModItemsFile;
-import com.tinkerlad.forgeTool.files.mod.proxies.ClientProxyFile;
-import com.tinkerlad.forgeTool.files.mod.proxies.CommonProxyFile;
+import com.tinkerlad.forgeTool.files.mod.BuildGradle;
+import com.tinkerlad.forgeTool.files.mod.java.MainModFile;
+import com.tinkerlad.forgeTool.files.mod.java.block.BlockGenericFile;
+import com.tinkerlad.forgeTool.files.mod.java.block.ModBlocksFile;
+import com.tinkerlad.forgeTool.files.mod.java.config.ConfigFile;
+import com.tinkerlad.forgeTool.files.mod.java.item.ItemGenericFile;
+import com.tinkerlad.forgeTool.files.mod.java.item.ModItemsFile;
+import com.tinkerlad.forgeTool.files.mod.java.proxies.ClientProxyFile;
+import com.tinkerlad.forgeTool.files.mod.java.proxies.CommonProxyFile;
+import com.tinkerlad.forgeTool.files.mod.java.tileentities.TileEntitiesFile;
+import com.tinkerlad.forgeTool.files.mod.java.tileentities.TileGenericFile;
+import com.tinkerlad.forgeTool.files.mod.resources.mcmodInfoFile;
 import com.tinkerlad.forgeTool.utils.FileUtils;
 import com.tinkerlad.forgeTool.utils.UnzipUtility;
 
@@ -17,7 +21,6 @@ import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 
@@ -126,7 +129,7 @@ public class ConsoleWorker extends SwingWorker {
 
 		//Gradle files in place now setup Decompiled Workspace
 
-		//executeCommand(Commands.FORGE_DECOMPILE, devDir);
+		executeCommand(Commands.FORGE_DECOMPILE, devDir);
 
 		setProgress(6);
 
@@ -181,6 +184,43 @@ public class ConsoleWorker extends SwingWorker {
 
 		File clientProxyFile = new File(basePackageDir + "/proxies/ClientProxy.java");
 		createFile(clientProxyFile, ClientProxyFile.getMainModFile(modName, basePackage, modID));
+
+		//TileEntities Package
+		File tileEntitiesFile = new File(basePackageDir + "/tileentities/TileEntities.java");
+		createFile(tileEntitiesFile, TileEntitiesFile.getMainModFile(modName, basePackage, modID));
+
+		File tileGenericFile = new File(basePackageDir + "/tileentities/TileGeneric.java");
+		createFile(tileEntitiesFile, TileGenericFile.getMainModFile(modName, basePackage, modID));
+
+		setProgress(8);
+
+		//*****************************Resources*************************************
+
+		//mcmod.info
+
+		File mcModFile = new File(devDir.getAbsolutePath() + "/src/main/resources/mcmod.info");
+		createFile(mcModFile, mcmodInfoFile.getMainModFile(modName,basePackage,modID,description,author,credits));
+
+		setProgress(9);
+
+
+		switch (selectedIDE){
+			case IDEA:
+				executeCommand(Commands.IDEA_RUNS,devDir);
+				break;
+			case ECLIPSE:
+				executeCommand(Commands.ECLIPSE_RUNS,devDir);
+				break;
+			default:
+				break;
+		}
+
+		setProgress(10);
+
+		publish("Finished Setting up project");
+
+		JOptionPane.showMessageDialog(null,"Successfully set up " + modName + "! Enjoy","COMPLETE!!", JOptionPane.INFORMATION_MESSAGE);
+
 	}
 
 	private void executeCommand(String command, File directory) {

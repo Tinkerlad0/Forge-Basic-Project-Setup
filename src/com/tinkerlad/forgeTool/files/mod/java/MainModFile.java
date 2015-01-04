@@ -1,4 +1,4 @@
-package com.tinkerlad.forgeTool.files.mod;
+package com.tinkerlad.forgeTool.files.mod.java;
 
 public class MainModFile {
 	private static final String modFile =

@@ -12,6 +12,7 @@ public class Progress {
     public static final String Six = "Removing examplemod";
     public static final String Seven = "Creating Base Mod";
     public static final String Eight = "Generating mcmod.info";
+    public static final String Nine = "Creating files for IDE";
     public static final String Default = "Setting up basic Forge Project";
     public static final String Done = "Finished";
     public static final String Error = "Error";
@@ -36,6 +37,8 @@ public class Progress {
             case 8:
                 return Eight;
             case 9:
+                return Nine;
+            case 10:
                 return Done;
             case -1:
                 return Error;

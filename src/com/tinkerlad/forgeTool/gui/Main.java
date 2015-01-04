@@ -254,4 +254,12 @@ public class Main extends JFrame implements ActionListener {
         return true;
     }
 
+    public void setDebugParams() {
+        txtAuthor.setText("Tinkerlad");
+        txtModID.setText("tnktesting");
+        txtCredits.setText("Testing the credits");
+        txtDesc.setText("This is the Description");
+        txtPackage.setText("com.tinkerlad.test");
+        txtName.setText("Testing Mod");
+    }
 }
